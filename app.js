@@ -7,7 +7,7 @@ const app = express();
 const port = 3000;
 
 // 🧩 Connect to MongoDB (fixed version)
-mongoose.connect("mongodb://127.0.0.1:27017/studentdb", {
+mongoose.connect("mongodb+srv://basavanagoudapatil017_db_user:Darshan@123@cluster0.y0dnd8n.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -77,3 +77,4 @@ app.get("/students", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+

@@ -1,0 +1,79 @@
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
+const app = express();
+const port = 3000;
+
+// 🧩 Connect to MongoDB (fixed version)
+mongoose.connect("mongodb://127.0.0.1:27017/studentdb", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log("✅ MongoDB connected successfully"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
+
+// 🎓 Create schema & model
+const studentSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  age: Number,
+  phone: String,
+  gender: String,
+  course: String,
+  address: String
+});
+
+const Student = mongoose.model("Student", studentSchema);
+
+// ⚙️ Middleware
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+
+// 🏠 Home
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+// 📝 Register form
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
+// 💾 Handle registration
+app.post("/register", async (req, res) => {
+  const { name, email, age, phone, gender, course, address } = req.body;
+
+  if (!name || !email || !age || !phone || !gender || !course || !address) {
+    return res.send("All fields are required!");
+  }
+
+  try {
+    const newStudent = new Student({ name, email, age, phone, gender, course, address });
+    await newStudent.save();
+    console.log("✅ Student data saved successfully:", newStudent);
+    res.render("success", { name });
+  } catch (err) {
+    console.error("❌ Error while saving student data:", err);
+    res.send("Error saving student data!");
+  }
+});
+
+// 👀 View all students
+app.get("/students", async (req, res) => {
+  try {
+    const students = await Student.find();
+    res.render("students", { students, total: students.length });
+  } catch (err) {
+    console.error(err);
+    res.send("Error fetching students!");
+  }
+});
+
+// 🚀 Start server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});

@@ -1,0 +1,48 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    min-height: 100vh;
+    color: #333;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+.card {
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+input, textarea, select {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg,#ff416c,#ff4b2b);
+    border: none;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg,#ff4b2b,#ff416c);
+}
+
+.btn-info {
+    background: #11998e;
+    color: white;
+    border: none;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #11998e, #38ef7d);
+    border-radius: 10px;
+}
+
+.nav-link {
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #ff416c !important;
+}

@@ -1,6 +1,4 @@
 {
-  "name": "student-course-reg",
-  "version": "1.0.0",
   "scripts": {
     "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
